@@ -1,0 +1,100 @@
+ Hausaufgabe UE 1 — Daten visualisieren
+
+Name: ____Mirza_________ &nbsp;&nbsp;&nbsp; Abgabe: _____________
+
+**Lektüre:** R4DS 2e, [Kap. 1 Data visualization](https://r4ds.hadley.nz/data-visualize.html)
+und [Kap. 2 Workflow: basics](https://r4ds.hadley.nz/workflow-basics.html) —
+lies sie zuerst, die Aufgaben bauen darauf auf.
+
+---
+
+## 1. Setup + erstes Ritual
+
+Installiere `tidyverse` und `palmerpenguins` (falls noch nicht geschehen) und
+führe aus:
+
+```r
+library(tidyverse)
+library(palmerpenguins)
+
+glimpse(penguins)
+```
+
+- Wie viele Zeilen (Pinguine)? _344_____ &nbsp; Wie viele Spalten? __8____
+- Welchen Typ hat `species`? ___fct_____ &nbsp; `body_mass_g`? ___int_____
+
+---
+
+## 2. Die Einstiegsfrage nachbauen
+
+Baue im **Skript** (nicht in der Konsole!) das Ziel-Bild aus der Stunde nach:
+
+```r
+ggplot(penguins,
+       aes(x = flipper_length_mm, y = body_mass_g, color = species)) +
+  geom_point() +
+  labs(x = "Flossengröße (mm)", y = "Körpermasse (g)")
+```
+
+- Steigt die Körpermasse mit der Flossengröße für **alle drei Arten**? ___Im Durchschnitt steigt es bei allen drei Arten_____
+- Welche Art ist am schwersten? ____Gentoo___________
+
+---
+
+## 3. Vorhersagen (ohne R — erst hinschreiben!)
+
+**a)** Was unterscheidet diese beiden Zeilen im Ergebnis?
+
+```r
+ggplot(penguins, aes(x = species, y = body_mass_g)) + geom_point(color = "red")
+ggplot(penguins, aes(x = species, y = body_mass_g, color = species)) + geom_point()
+```
+
+Vorhersage: _Die erste Zeile spuckt die Ergebnisse in Rot aus.Die zweite Zeile spuckt die Ergebnisse in Farben aus.______________________________________________
+
+<br>R-Ergebnis (ausführen und vergleichen): __Ja_______________________________________________
+
+**b)** Was passiert, wenn du das `+` an den Zeilenanfang stellst?
+
+```r
+ggplot(penguins, aes(x = body_mass_g))
+  + geom_histogram(binwidth = 250)
+```
+
+Vorhersage: ___Fehlermeldung______________________________________________
+
+<br>R-Ergebnis: _______Ja__________________________________________
+
+---
+
+## 4. Eine eigene Frage finden
+
+Wähle zwei Zahlen-Spalten der Pinguine, die dich interessieren, und baue ein
+Streudiagramm mit sinnvollen `labs()`-Achsentiteln. Ergänze `geom_smooth()`.
+
+- Deine Frage (in einem Satz): Besteht ein Zusammenhang zwischen er Schnabellänge (bill_length_mm)und dem Körpergewicht(body_mass_g) der Pinguine?_________________________________________________
+- Was zeigt der Plot? (2 Sätze): Der Plot zeigt ein Streudiagramm,bei dem jeder Punkt einen Pinguin darstellt._________________________________________________
+
+  __ggplot(data = penguins, aes(x = bill_length_mm, y = body_mass_g)) +
+  geom_point() +
+  geom_smooth() +
+  labs(x = "Schnabellänge (mm)", y = "Körpergewicht (g)")_______________________________________________
+
+---
+
+## 5. Kapitel-Check (Kap. 2 — Workflow: basics)
+
+Antworte in eigenen Worten (1–2 Sätze je Frage):
+
+- Warum steht das `+` in `ggplot2` **immer am Zeilenende** — was würde auch
+  technisch passieren, wenn du es ans Zeilenanfang stellst? Wie meldet sich R?
+
+  _______________________________________Das + zeigt, dass der Plot erweitert wird. R erkennt, dass der Befehl noch nicht fertig ist. In der nächsten Zeile geht es weiter.
+
+
+
+- Warum speichert man Werte mit `<-` in einem Skript, statt sie in der
+  Konsole direkt auszurechnen?
+
+  _______Mit <- speichert man Werte in Variablen. So kann man sie später wiederverwenden. Im Skript bleibt der Code gespeichert. Dadurch kann man die Analyse jederzeit wiederholen.
+
